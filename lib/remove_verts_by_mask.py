@@ -4,7 +4,7 @@ import numpy
 
 
 class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
-    bl_idname = "piyo.piyo"
+    bl_idname = "taremin.remove_verts_op"
     bl_label = 'Remove'
 
     def execute(self, context):
