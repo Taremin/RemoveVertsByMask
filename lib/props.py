@@ -72,7 +72,6 @@ class RemoveVertsPanelProps(bpy.types.PropertyGroup):
 class RemoveVerts_OT_Add(bpy.types.Operator):
     bl_idname = "taremin.remove_verts_add"
     bl_label = "Add Entry"
-    bl_description = 'hoge'
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
