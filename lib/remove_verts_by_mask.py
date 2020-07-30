@@ -8,10 +8,22 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
     bl_label = 'Remove'
 
     def execute(self, context):
-        # tmp data
-        image = bpy.data.images[1]
-
+        settings = context.scene.taremin_rvbm
         mode = context.active_object.mode
+        active = context.active_object
+
+        # get shrinkwrap modifiers
+        modifier_target_dict = {}
+        if settings.apply_shrinkwrap_modifier:
+            for obj in bpy.context.window.view_layer.objects:
+                for mod in obj.modifiers:
+                    if mod.type != 'SHRINKWRAP':
+                        continue
+                    if mod.target is None:
+                        continue
+                    if mod.target.name not in modifier_target_dict:
+                        modifier_target_dict[mod.target.name] = []
+                    modifier_target_dict[mod.target.name].append((obj, mod))
 
         for s in context.scene.taremin_rvbm.object_settings:
             if s.ref_object is None:
@@ -21,9 +33,16 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
             if s.ref_uvmap is None:
                 continue
 
+            if settings.apply_shrinkwrap_modifier:
+                if s.ref_object.name in modifier_target_dict:
+                    for (obj, mod) in modifier_target_dict[s.ref_object.name]:
+                        bpy.context.window.view_layer.objects.active = obj
+                        bpy.ops.object.modifier_apply(modifier=mod.name)
+
             self.remove(s.ref_object, s.ref_mask, s.ref_uvmap,
                         s.ref_watermark, int(s.ref_channel), s.ref_depth)
 
+        bpy.context.window.view_layer.objects.active = active 
         bpy.ops.object.mode_set(mode=mode)
 
         return {'FINISHED'}
@@ -83,7 +102,6 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
 
     def create_vertex_uv(self, bm, uv_name):
         uv_layer = bm.loops.layers.uv[uv_name]
-        # print(bm.loops.layers.uv['UVMap.001'])
         dict = {}
 
         for f in bm.faces:

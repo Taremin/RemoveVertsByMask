@@ -11,7 +11,11 @@ class VIEW3D_PT_remove_verts_by_mask_panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        settings = context.scene.taremin_rvbm
+
         props.RemoveVertsPanelProps.draw(context, layout)
+        layout.prop(settings, 'apply_shrinkwrap_modifier')
+
         layout.operator(
             remove_verts_by_mask.VIEW3D_OT_remove_verts_by_mask.bl_idname)
 

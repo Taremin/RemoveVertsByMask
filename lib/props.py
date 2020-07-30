@@ -35,6 +35,11 @@ class RemoveVertsPanelProps(bpy.types.PropertyGroup):
         type=RemoveVertsByMaskProps)
     object_settings_index: bpy.props.IntProperty(
         name="Active Index", default=-1)
+    apply_shrinkwrap_modifier: bpy.props.BoolProperty(
+        name="Apply Shrinkwrap Modifier",
+        default=False,
+        description="削除対象のオブジェクトがシュリンクラップモディファイアの対象になっていた場合に自動で適用します"
+    )
 
     @classmethod
     def draw(cls, context, layout):
