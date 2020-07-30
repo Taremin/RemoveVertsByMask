@@ -38,7 +38,9 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
                     for (obj, mod) in modifier_target_dict[s.ref_object.name]:
                         bpy.context.window.view_layer.objects.active = obj
                         bpy.ops.object.modifier_apply(modifier=mod.name)
+                    del modifier_target_dict[s.ref_object.name]
 
+            bpy.context.window.view_layer.objects.active = s.ref_object
             self.remove(s.ref_object, s.ref_mask, s.ref_uvmap,
                         s.ref_watermark, int(s.ref_channel), s.ref_depth)
 
