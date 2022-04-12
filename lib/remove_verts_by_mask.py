@@ -104,6 +104,9 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
         bmesh.ops.delete(
             bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
 
+        bmesh.ops.delete(
+            bm, geom=[e for e in bm.edges if not e.link_faces], context='EDGES')
+
     def create_vertex_uv(self, bm, uv_name):
         uv_layer = bm.loops.layers.uv[uv_name]
         dict = {}
