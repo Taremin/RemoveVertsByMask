@@ -14,6 +14,8 @@ class RemoveVertsByMaskProps(bpy.types.PropertyGroup):
         # スペースはtranslate=Falseでも翻訳されてしまうのを防ぐ
         return [(uvmap.name, uvmap.name + ' ', uvmap.name + ' ', 'UV', i) for (i, uvmap) in enumerate(self.ref_object.data.uv_layers)]
 
+    is_folding: bpy.props.BoolProperty(default=False)
+    ref_enable: bpy.props.BoolProperty(default=True)
     ref_object: bpy.props.PointerProperty(type=bpy.types.Object, poll=poll)
     ref_mask: bpy.props.PointerProperty(type=bpy.types.Image)
     ref_watermark: bpy.props.FloatProperty(min=0.0, max=1.0)

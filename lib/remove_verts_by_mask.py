@@ -26,6 +26,8 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
                     modifier_target_dict[mod.target.name].append((obj, mod))
 
         for s in context.scene.taremin_rvbm.object_settings:
+            if not s.ref_enable:
+                continue
             if s.ref_object is None:
                 continue
             if s.ref_mask is None:
@@ -44,7 +46,7 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
             self.remove(s.ref_object, s.ref_mask, s.ref_uvmap,
                         s.ref_watermark, int(s.ref_channel), s.ref_depth)
 
-        bpy.context.window.view_layer.objects.active = active 
+        bpy.context.window.view_layer.objects.active = active
         bpy.ops.object.mode_set(mode=mode)
 
         return {'FINISHED'}
