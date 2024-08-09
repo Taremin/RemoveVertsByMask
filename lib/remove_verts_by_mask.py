@@ -76,7 +76,7 @@ class VIEW3D_OT_remove_verts_by_mask(bpy.types.Operator):
 
         def select_depth(vert, max_depth=1, visited=None):
             if visited is None:
-                visited = numpy.zeros(len(bm.verts), dtype=numpy.bool)
+                visited = numpy.zeros(len(bm.verts), dtype=bool)
                 visited[vert.index] = True
 
             if max_depth <= 0:
