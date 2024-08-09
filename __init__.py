@@ -11,7 +11,7 @@ bl_info = {
     'author': 'Taremin',
     'location': 'View 3D > Tools',
     'description': "",
-    'version': (0, 0, 3),
+    'version': (0, 0, 4),
     'blender': (2, 80, 0),
     'wiki_url': '',
     'tracker_url': '',
